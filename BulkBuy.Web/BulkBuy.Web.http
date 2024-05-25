@@ -1,0 +1,6 @@
+@BulkBuy.Web_HostAddress = http://localhost:5182
+
+GET {{BulkBuy.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
