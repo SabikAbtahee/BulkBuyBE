@@ -1,20 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BulkBuy.Commands.Identity;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BulkBuy.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class IdentityController : Controller
     {
+        private readonly IMediator _mediatr;
 
-        public IdentityController()
+        public IdentityController(IMediator mediatr)
         {
-            
+            _mediatr = mediatr;
         }
 
-        public IActionResult Index()
+        [HttpPost]
+        public async Task<ActionResult> Login()
         {
-            return View();
+            var p = await _mediatr.Send(new LoginCommand() { Email = "", Password = "" });
+            return Ok(p);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Register()
+        {
+            var p = await _mediatr.Send(new RegistrationCommand() { });
+            return Ok(p);
         }
     }
 }

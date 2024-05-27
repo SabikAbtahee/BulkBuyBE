@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkBuy.Web", "BulkBuy.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkBuy.Entities", "BulkBuy.Entities\BulkBuy.Entities.csproj", "{679F450A-C4E5-42D4-964B-2E455CA3BEEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.Commands", "BulkBuy.Commands\BulkBuy.Commands.csproj", "{589BF62F-9E2B-4B16-8AE7-C258012822E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkBuy.Commands", "BulkBuy.Commands\BulkBuy.Commands.csproj", "{589BF62F-9E2B-4B16-8AE7-C258012822E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.Queries", "BulkBuy.Queries\BulkBuy.Queries.csproj", "{05FCCA44-DE74-4C53-B88E-4050292D04F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkBuy.Queries", "BulkBuy.Queries\BulkBuy.Queries.csproj", "{05FCCA44-DE74-4C53-B88E-4050292D04F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkBuy.Core", "BulkBuy.Core\BulkBuy.Core.csproj", "{72A46663-CF23-48BC-AC64-703439F08A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.CommandsHandler", "BulkBuy.CommandsHandler\BulkBuy.CommandsHandler.csproj", "{786F27CF-F608-497D-BF61-B9DBD3DDAFD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.QueriesHandler", "BulkBuy.QueriesHandler\BulkBuy.QueriesHandler.csproj", "{0476F9FC-3455-40B7-B851-578AB5D2DE2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{05FCCA44-DE74-4C53-B88E-4050292D04F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05FCCA44-DE74-4C53-B88E-4050292D04F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05FCCA44-DE74-4C53-B88E-4050292D04F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A46663-CF23-48BC-AC64-703439F08A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A46663-CF23-48BC-AC64-703439F08A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A46663-CF23-48BC-AC64-703439F08A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A46663-CF23-48BC-AC64-703439F08A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786F27CF-F608-497D-BF61-B9DBD3DDAFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786F27CF-F608-497D-BF61-B9DBD3DDAFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786F27CF-F608-497D-BF61-B9DBD3DDAFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786F27CF-F608-497D-BF61-B9DBD3DDAFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0476F9FC-3455-40B7-B851-578AB5D2DE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0476F9FC-3455-40B7-B851-578AB5D2DE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0476F9FC-3455-40B7-B851-578AB5D2DE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0476F9FC-3455-40B7-B851-578AB5D2DE2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
