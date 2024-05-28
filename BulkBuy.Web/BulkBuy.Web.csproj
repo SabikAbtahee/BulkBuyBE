@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
@@ -14,6 +15,9 @@
     <ProjectReference Include="..\BulkBuy.CommandsHandler\BulkBuy.CommandsHandler.csproj" />
     <ProjectReference Include="..\BulkBuy.Commands\BulkBuy.Commands.csproj" />
     <ProjectReference Include="..\BulkBuy.Core\BulkBuy.Core.csproj" />
+    <ProjectReference Include="..\BulkBuy.Logger\BulkBuy.Logger.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

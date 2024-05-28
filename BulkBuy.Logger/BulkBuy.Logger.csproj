@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BulkBuy.Commands\BulkBuy.Commands.csproj" />
     <ProjectReference Include="..\BulkBuy.Core\BulkBuy.Core.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.11" />
+  </ItemGroup>
 </Project>
