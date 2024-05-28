@@ -1,8 +1,14 @@
 ﻿using BulkBuy.Commands.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BulkBuy.Web.Controllers
+namespace BulkBuy.Identity.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
