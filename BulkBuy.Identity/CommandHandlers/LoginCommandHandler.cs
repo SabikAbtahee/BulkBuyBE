@@ -14,17 +14,17 @@ namespace BulkBuy.CommandsHandler.Identity
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDto>
     {
         private readonly ILoggerManager _logger;
-        private readonly IRepository<Person> _repository;
+        private readonly IRepository _repository;
 
-        public LoginCommandHandler(ILoggerManager logger, IRepository<Person> repository)
+        public LoginCommandHandler(ILoggerManager logger, IRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
         public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            await _repository.SaveAsync(new Person());
-            var a = await _repository.GetItemsAsync();
+            await _repository.SaveAsync<Product>(new Product());
+            var a = await _repository.GetItemsAsync<Product>();
 
             return new LoginDto();
         }

@@ -1,9 +1,8 @@
-using BulkBuy.Core.Entities;
 using BulkBuy.Identity.Extensions;
 using BulkBuy.Web.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
-
+using BulkBuy.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 LogManager.Setup().LoadConfiguration(builder =>
@@ -17,15 +16,10 @@ builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 builder.Services.ConfigureLoggerService();
 builder.Services.AddIdentityCollection();
+
 builder.Services
     .ConfigureMongoDatabase()
-    .ConfigureMongoRepository<Person>($"{nameof(Person)}s");
-    //.ConfigureMongoRepository<Order>($"{nameof(Order)}s")
-    //.ConfigureMongoRepository<Location>($"{nameof(Location)}s")
-    //.ConfigureMongoRepository<OrderBatch>($"{nameof(OrderBatch)}s")
-    //.ConfigureMongoRepository<Product>($"{nameof(Product)}s");
-//builder.Services.ConfigureMongoRepositories("BulkBuy.Core.Entities");
-
+    .ConfigureMongoRepositories("BulkBuy.Core.Entities");
 
 
 builder.Services.AddControllers();

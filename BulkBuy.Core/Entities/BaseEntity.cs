@@ -12,17 +12,17 @@ namespace BulkBuy.Core.Entities
         public BaseEntity()
         {
             this.Id = Guid.NewGuid();
-            this.CreatedDate = new DateTimeOffset();
-            this.LastUpdateDate = new DateTimeOffset();
+            this.CreatedDate = DateTime.Now;
+            this.LastUpdateDate = DateTime.Now;
             this.Tags = new List<string>();
         }
         public Guid Id { get; init; }
 
         public string CreatedBy { get; set; }
 
-        public DateTimeOffset CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public DateTimeOffset LastUpdateDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
 
         public string LastUpdatedBy { get; set; }
 

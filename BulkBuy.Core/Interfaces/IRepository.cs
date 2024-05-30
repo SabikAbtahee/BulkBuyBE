@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 
 namespace BulkBuy.Core.Interfaces
 {
-    public interface IRepository<T> where T : IBaseEntity
+    public interface IRepository
     {
-        Task<IReadOnlyCollection<T>> GetItemsAsync(Expression<Func<T, bool>> dataFilters);
+        Task<IReadOnlyCollection<T>> GetItemsAsync<T>(Expression<Func<T, bool>> dataFilters) where T : IBaseEntity;
 
-        Task<IReadOnlyCollection<T>> GetItemsAsync();
+        Task<IReadOnlyCollection<T>> GetItemsAsync<T>() where T : IBaseEntity;
 
-        Task<T> GetItemAsync(Expression<Func<T, bool>> dataFilters);
+        Task<T> GetItemAsync<T>(Expression<Func<T, bool>> dataFilters) where T : IBaseEntity;
 
-        Task SaveAsync(T data, string collectionName = "");
+        Task SaveAsync<T>(T data, string collectionName = "") where T : IBaseEntity;
 
-        Task SaveAsync(List<T> datas, string collectionName = "");
+        Task SaveAsync<T>(List<T> datas, string collectionName = "") where T : IBaseEntity;
 
-        Task UpdateAsync(Expression<Func<T, bool>> dataFilters, T data);
+        Task UpdateAsync<T>(Expression<Func<T, bool>> dataFilters, T data) where T : IBaseEntity;
 
-        Task UpdateAsync(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates);
+        Task UpdateAsync<T>(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates) where T : IBaseEntity;
 
-        Task UpdateManyAsync(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates);
+        Task UpdateManyAsync<T>(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates) where T : IBaseEntity;
 
-        Task DeleteAsync(Expression<Func<T, bool>> dataFilters, string collectionName);
+        Task DeleteAsync<T>(Expression<Func<T, bool>> dataFilters, string collectionName) where T : IBaseEntity;
 
 
     }

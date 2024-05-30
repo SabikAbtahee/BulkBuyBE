@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BulkBuy.Core\BulkBuy.Core.csproj" />
-    <ProjectReference Include="..\BulkBuy.Database\BulkBuy.Database.csproj" />
     <ProjectReference Include="..\BulkBuy.Identity\BulkBuy.Identity.csproj" />
     <ProjectReference Include="..\BulkBuy.Logger\BulkBuy.Logger.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>

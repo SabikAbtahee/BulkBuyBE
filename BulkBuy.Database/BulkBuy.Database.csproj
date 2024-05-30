@@ -10,4 +10,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BulkBuy.Core\BulkBuy.Core.csproj" />
+  </ItemGroup>
 </Project>

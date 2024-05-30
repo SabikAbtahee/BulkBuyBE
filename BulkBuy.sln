@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.Identity", "BulkBuy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.Repository", "BulkBuy.Repository\BulkBuy.Repository.csproj", "{D0E948C0-94A8-4440-A87F-22AF2F9AC3D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.Database", "BulkBuy.Database\BulkBuy.Database.csproj", "{46193A0B-67BE-4BFE-83AE-5B6DF866CDDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkBuy.Product", "BulkBuy.Product\BulkBuy.Product.csproj", "{A290FAAF-3F82-4885-B480-CBFF047EFEC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +46,10 @@ Global
 		{D0E948C0-94A8-4440-A87F-22AF2F9AC3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0E948C0-94A8-4440-A87F-22AF2F9AC3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0E948C0-94A8-4440-A87F-22AF2F9AC3D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46193A0B-67BE-4BFE-83AE-5B6DF866CDDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46193A0B-67BE-4BFE-83AE-5B6DF866CDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46193A0B-67BE-4BFE-83AE-5B6DF866CDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46193A0B-67BE-4BFE-83AE-5B6DF866CDDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A290FAAF-3F82-4885-B480-CBFF047EFEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A290FAAF-3F82-4885-B480-CBFF047EFEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A290FAAF-3F82-4885-B480-CBFF047EFEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A290FAAF-3F82-4885-B480-CBFF047EFEC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
