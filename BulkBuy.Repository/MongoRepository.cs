@@ -1,150 +1,123 @@
 ﻿using BulkBuy.Core.Interfaces;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BulkBuy.Repository;
 
-public class MongoRepository<T> : IRepository
+public class MongoRepository : IRepository
 {
     private readonly IMongoDatabase _database;
-    private readonly string _collectionName;
-    private readonly IMongoCollection<T> _dbCollection;
-    private readonly FilterDefinitionBuilder<T> filterBuilder = Builders<T>.Filter;
 
-    public MongoRepository(IMongoDatabase database, string collectionName)
+    public MongoRepository(IMongoDatabase database)
     {
         _database = database;
-        _collectionName = collectionName;
-        _dbCollection = database.GetCollection<T>(collectionName);
     }
 
-    public Task DeleteAsync<T1>(Expression<Func<T1, bool>> dataFilters, string collectionName) where T1 : IBaseEntity
+    public async Task DeleteAsync<T>(Expression<Func<T, bool>> dataFilters, string collectionName) where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(collectionName))
+        {
+            collectionName = $"{typeof(T).Name}s";
+        }
+        var collection = _database.GetCollection<T>(collectionName);
+        await collection.DeleteOneAsync(dataFilters);
     }
 
-    public Task<T1> GetItemAsync<T1>(Expression<Func<T1, bool>> dataFilters) where T1 : IBaseEntity
+    public async Task DeleteManyAsync<T>(Expression<Func<T, bool>> dataFilters, string collectionName) where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(collectionName))
+        {
+            collectionName = $"{typeof(T).Name}s";
+        }
+        var collection = _database.GetCollection<T>(collectionName);
+        await collection.DeleteManyAsync(dataFilters);
     }
 
-    public Task<IReadOnlyCollection<T1>> GetItemsAsync<T1>(Expression<Func<T1, bool>> dataFilters) where T1 : IBaseEntity
+    public async Task<T> GetItemAsync<T>(Expression<Func<T, bool>> dataFilters) where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        var collectionName = $"{typeof(T).Name}s";
+        var collection = _database.GetCollection<T>(collectionName);
+        return await collection.Find(dataFilters).FirstOrDefaultAsync();
     }
 
-    public Task<IReadOnlyCollection<T1>> GetItemsAsync<T1>() where T1 : IBaseEntity
+    public async Task<IReadOnlyCollection<T>> GetItemsAsync<T>(Expression<Func<T, bool>> dataFilters) where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        var collectionName = $"{typeof(T).Name}s";
+        var collection = _database.GetCollection<T>(collectionName);
+        var items = await collection.Find(dataFilters).ToListAsync();
+        return items.AsReadOnly();
     }
 
-    public Task SaveAsync<T1>(T1 data, string collectionName = "") where T1 : IBaseEntity
+    public async Task<IReadOnlyCollection<T>> GetItemsAsync<T>() where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        var collectionName = $"{typeof(T).Name}s";
+        var collection = _database.GetCollection<T>(collectionName);
+        var items = await collection.Find(_ => true).ToListAsync();
+        return items.AsReadOnly();
     }
 
-    public Task SaveAsync<T1>(List<T1> datas, string collectionName = "") where T1 : IBaseEntity
+    public async Task SaveAsync<T>(T data, string collectionName = "") where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        if (collectionName == "")
+        {
+            collectionName = $"{typeof(T).Name}s";
+        }
+        await _database.GetCollection<T>(collectionName).InsertOneAsync(data);
+
     }
 
-    public Task UpdateAsync<T1>(Expression<Func<T1, bool>> dataFilters, T1 data) where T1 : IBaseEntity
+    public async Task SaveAsync<T>(List<T> datas, string collectionName = "") where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(collectionName))
+        {
+            collectionName = $"{typeof(T).Name}s";
+        }
+        var collection = _database.GetCollection<T>(collectionName);
+        await collection.InsertManyAsync(datas);
     }
 
-    public Task UpdateAsync<T1>(Expression<Func<T1, bool>> dataFilters, IDictionary<string, object> updates) where T1 : IBaseEntity
+    public async Task UpdateAsync<T>(Expression<Func<T, bool>> dataFilters, T data) where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        var collectionName = $"{typeof(T).Name}s";
+        var collection = _database.GetCollection<T>(collectionName);
+        await collection.ReplaceOneAsync(dataFilters, data);
     }
 
-    public Task UpdateManyAsync<T1>(Expression<Func<T1, bool>> dataFilters, IDictionary<string, object> updates) where T1 : IBaseEntity
+    public async Task UpdateAsync<T>(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates) where T : IBaseEntity
     {
-        throw new NotImplementedException();
+        var collectionName = $"{typeof(T).Name}s";
+        var collection = _database.GetCollection<T>(collectionName);
+
+        var updateDefinition = new UpdateDefinitionBuilder<T>();
+        var updateDefinitions = new List<UpdateDefinition<T>>();
+
+        foreach (var update in updates)
+        {
+            updateDefinitions.Add(updateDefinition.Set(update.Key, update.Value));
+        }
+
+        var combinedUpdate = updateDefinition.Combine(updateDefinitions);
+
+        await collection.UpdateOneAsync(dataFilters, combinedUpdate);
     }
 
+    public async Task UpdateManyAsync<T>(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates) where T : IBaseEntity
+    {
+        var collectionName = $"{typeof(T).Name}s";
+        var collection = _database.GetCollection<T>(collectionName);
 
+        var updateDefinition = new UpdateDefinitionBuilder<T>();
+        var updateDefinitions = new List<UpdateDefinition<T>>();
 
-    //public Task DeleteAsync<T1>(Expression<Func<T1, bool>> dataFilters, string collectionName) where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
+        foreach (var update in updates)
+        {
+            updateDefinitions.Add(updateDefinition.Set(update.Key, update.Value));
+        }
 
+        var combinedUpdate = updateDefinition.Combine(updateDefinitions);
 
-    //public Task<T1> GetItemAsync<T1>(Expression<Func<T1, bool>> dataFilters) where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
+        await collection.UpdateManyAsync(dataFilters, combinedUpdate);
+    }
 
-
-    ////public async Task<IReadOnlyCollection<T>> GetItemsAsync()
-    ////{
-    ////    return await _dbCollection.Find(filterBuilder.Empty).ToListAsync();
-    ////}
-
-    //public async Task<IReadOnlyCollection<T1>> GetItemsAsync<T1>(Expression<Func<T1, bool>> dataFilters) where T1 : IBaseEntity
-    //{
-    //    return await _dbCollection.Find(filterBuilder.Empty).ToListAsync();
-
-    //}
-
-    //public Task<IReadOnlyCollection<T1>> GetItemsAsync<T1>() where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    ////public async Task SaveAsync(T data, string collectionName = "")
-    ////{
-    ////    await _dbCollection.InsertOneAsync(data);
-    ////}
-
-    ////public async Task SaveAsync(List<T> datas, string collectionName = "")
-    ////{
-    ////    throw new NotImplementedException();
-    ////}
-
-    //public Task SaveAsync<T1>(T1 data, string collectionName = "") where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public Task SaveAsync<T1>(List<T1> datas, string collectionName = "") where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    ////public async Task UpdateAsync(Expression<Func<T, bool>> dataFilters, T data)
-    ////{
-    ////    throw new NotImplementedException();
-    ////}
-
-    ////public async Task UpdateAsync(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates)
-    ////{
-    ////    throw new NotImplementedException();
-    ////}
-
-    //public Task UpdateAsync<T1>(Expression<Func<T1, bool>> dataFilters, T1 data) where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public Task UpdateAsync<T1>(Expression<Func<T1, bool>> dataFilters, IDictionary<string, object> updates) where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public async Task UpdateManyAsync(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public Task UpdateManyAsync<T1>(Expression<Func<T1, bool>> dataFilters, IDictionary<string, object> updates) where T1 : IBaseEntity
-    //{
-    //    throw new NotImplementedException();
-    //}
 }

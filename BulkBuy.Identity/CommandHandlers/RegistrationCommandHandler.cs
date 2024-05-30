@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkBuy.CommandsHandler.Identity
+namespace BulkBuy.Identity.CommandsHandlers
 {
     public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, RegistrationDto>
     {

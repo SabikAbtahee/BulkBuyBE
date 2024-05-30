@@ -10,4 +10,10 @@
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="BaseDtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BaseDtos\" />
+  </ItemGroup>
 </Project>

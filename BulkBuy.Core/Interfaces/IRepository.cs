@@ -9,23 +9,25 @@ namespace BulkBuy.Core.Interfaces
 {
     public interface IRepository
     {
-        Task<IReadOnlyCollection<T>> GetItemsAsync<T>(Expression<Func<T, bool>> dataFilters) where T : IBaseEntity;
+        Task<IReadOnlyCollection<TEntity>> GetItemsAsync<TEntity>(Expression<Func<TEntity, bool>> dataFilters) where TEntity : IBaseEntity;
 
-        Task<IReadOnlyCollection<T>> GetItemsAsync<T>() where T : IBaseEntity;
+        Task<IReadOnlyCollection<TEntity>> GetItemsAsync<TEntity>() where TEntity : IBaseEntity;
 
-        Task<T> GetItemAsync<T>(Expression<Func<T, bool>> dataFilters) where T : IBaseEntity;
+        Task<TEntity> GetItemAsync<TEntity>(Expression<Func<TEntity, bool>> dataFilters) where TEntity : IBaseEntity;
 
-        Task SaveAsync<T>(T data, string collectionName = "") where T : IBaseEntity;
+        Task SaveAsync<TEntity>(TEntity data, string collectionName = "") where TEntity : IBaseEntity;
 
-        Task SaveAsync<T>(List<T> datas, string collectionName = "") where T : IBaseEntity;
+        Task SaveAsync<TEntity>(List<TEntity> datas, string collectionName = "") where TEntity : IBaseEntity;
 
-        Task UpdateAsync<T>(Expression<Func<T, bool>> dataFilters, T data) where T : IBaseEntity;
+        Task UpdateAsync<TEntity>(Expression<Func<TEntity, bool>> dataFilters, TEntity data) where TEntity : IBaseEntity;
 
-        Task UpdateAsync<T>(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates) where T : IBaseEntity;
+        Task UpdateAsync<TEntity>(Expression<Func<TEntity, bool>> dataFilters, IDictionary<string, object> updates) where TEntity : IBaseEntity;
 
-        Task UpdateManyAsync<T>(Expression<Func<T, bool>> dataFilters, IDictionary<string, object> updates) where T : IBaseEntity;
+        Task UpdateManyAsync<TEntity>(Expression<Func<TEntity, bool>> dataFilters, IDictionary<string, object> updates) where TEntity : IBaseEntity;
 
-        Task DeleteAsync<T>(Expression<Func<T, bool>> dataFilters, string collectionName) where T : IBaseEntity;
+        Task DeleteAsync<TEntity>(Expression<Func<TEntity, bool>> dataFilters, string collectionName) where TEntity : IBaseEntity;
+
+        Task DeleteManyAsync<T1>(Expression<Func<T1, bool>> dataFilters, string collectionName) where T1 : IBaseEntity;
 
 
     }

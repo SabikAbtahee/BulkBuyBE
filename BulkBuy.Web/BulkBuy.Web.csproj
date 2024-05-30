@@ -18,6 +18,12 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\BulkBuy.Repository\BulkBuy.Repository.csproj" />
+    <ProjectReference Include="..\BulkBuy.Product\BulkBuy.Product.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\BulkBuy.Product\BulkBuy.ProductFeature.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

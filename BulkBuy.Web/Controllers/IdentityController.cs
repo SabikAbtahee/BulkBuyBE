@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BulkBuy.Identity.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class IdentityController : Controller
     {
         private readonly IMediator _mediatr;

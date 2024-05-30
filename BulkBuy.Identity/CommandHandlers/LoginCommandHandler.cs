@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkBuy.CommandsHandler.Identity
+namespace BulkBuy.Identity.CommandHandlers
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDto>
     {
@@ -24,7 +24,9 @@ namespace BulkBuy.CommandsHandler.Identity
         public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             await _repository.SaveAsync<Product>(new Product());
-            var a = await _repository.GetItemsAsync<Product>();
+            await _repository.SaveAsync<Person>(new Person());
+            
+            //var a = await _repository.GetItemsAsync<Product>();
 
             return new LoginDto();
         }
