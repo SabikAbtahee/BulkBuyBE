@@ -4,7 +4,7 @@
     {
         string CreatedBy { get; set; }
         DateTimeOffset CreatedDate { get; set; }
-        Guid Id { get; set; }
+        Guid Id { get; init; }
         List<string> IdsAllowedToDelete { get; set; }
         List<string> IdsAllowedToRead { get; set; }
         List<string> IdsAllowedToUpdate { get; set; }

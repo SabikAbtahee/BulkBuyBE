@@ -8,7 +8,15 @@ namespace BulkBuy.Core.Entities
 {
     public class BaseEntity : IBaseEntity
     {
-        public Guid Id { get; set; }
+
+        public BaseEntity()
+        {
+            this.Id = Guid.NewGuid();
+            this.CreatedDate = new DateTimeOffset();
+            this.LastUpdateDate = new DateTimeOffset();
+            this.Tags = new List<string>();
+        }
+        public Guid Id { get; init; }
 
         public string CreatedBy { get; set; }
 
