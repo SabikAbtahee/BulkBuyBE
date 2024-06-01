@@ -9,5 +9,9 @@ namespace BulkBuy.Identity.Services
 {
     public class IdentityService : IIdentity
     {
+        public void gg()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

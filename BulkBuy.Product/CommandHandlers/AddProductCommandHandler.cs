@@ -36,7 +36,7 @@ namespace BulkBuy.ProductFeature.CommandHandlers
                 Data = new ProductDto(),
                 Success = true,
                 ErrorMessages = null,
-                HttpStatusCode = 201
+                StatusCode = 201
             };
         }
     }

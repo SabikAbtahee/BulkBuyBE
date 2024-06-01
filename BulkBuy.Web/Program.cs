@@ -4,6 +4,7 @@ using BulkBuy.Web.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 using BulkBuy.Repository;
+using BulkBuy.Core.GlobalExceptionHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,8 @@ LogManager.Setup().LoadConfiguration(builder =>
     builder.ForLogger().FilterMinLevel(NLog.LogLevel.Info).WriteToConsole();
     builder.ForLogger().FilterMinLevel(NLog.LogLevel.Debug).WriteToFile(fileName: "file.txt");
 });
-
 //Services
+
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 builder.Services.ConfigureLoggerService();
@@ -29,21 +30,40 @@ builder.Services.AddProductCollection();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
 var app = builder.Build();
 
-//Pipeline - order here matters 
+
+//PipeLineOrder
+//ExceptionHandler
+//HSTS
+//Httpsredirect
+//StaticFoles
+//Routing
+//Cors
+//Authentication
+//Authorization
+//Customs
+//Endpoint
+
+app.UseExceptionHandler("/Error");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
 else app.UseHsts();
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
+app.UseRouting();
 app.UseCors("CorsPolicy");
-app.UseAuthorization();
-
+//app.UseAuthentication();
+//app.UseAuthorization();
+//app.UseSession();
 
 app.MapControllers();
 

@@ -8,5 +8,6 @@ namespace BulkBuy.Identity.Interfaces
 {
     internal interface IIdentity
     {
+        void gg();
     }
 }

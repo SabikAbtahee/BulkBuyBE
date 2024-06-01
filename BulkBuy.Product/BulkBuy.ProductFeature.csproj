@@ -14,11 +14,13 @@
     <None Remove="Dtos\" />
     <None Remove="Extensions\" />
     <None Remove="CommandHandlers\" />
+    <None Remove="Validators\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Dtos\" />
     <Folder Include="Extensions\" />
     <Folder Include="CommandHandlers\" />
+    <Folder Include="Validators\" />
   </ItemGroup>
 </Project>

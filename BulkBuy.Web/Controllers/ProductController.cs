@@ -21,8 +21,11 @@ namespace BulkBuy.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct([FromBody] AddProductCommand payload)
         {
-            var p = await _mediatr.Send(payload);
-            return Ok(p);
+            //var p = await _mediatr.Send(payload);
+            //return Ok(p);
+
+            throw new NotImplementedException();
+
         }
     }
 }
