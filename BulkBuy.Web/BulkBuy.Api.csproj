@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BulkBuy.Application\BulkBuy.Application.csproj" />
+    <ProjectReference Include="..\BulkBuy.Contracts\BulkBuy.Contracts.csproj" />
+    <ProjectReference Include="..\BulkBuy.Infrastructure\BulkBuy.Infrastructure.csproj" />
+
+  </ItemGroup>
+
+</Project>

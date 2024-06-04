@@ -1,38 +1,50 @@
-﻿using BulkBuy.Commands.Identity;
+﻿using BulkBuy.Api.Controllers;
+using BulkBuy.Application.Identity.Commands.Register;
+using BulkBuy.Application.Identity.Common;
+using BulkBuy.Application.Identity.Queries.Login;
+using BulkBuy.Contracts.Identity;
+using ErrorOr;
+using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BulkBuy.Identity.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")]
-    public class IdentityController : Controller
+    [Route("auth")]
+    [AllowAnonymous]
+    public class IdentityController : ApiController
     {
-        private readonly IMediator _mediatr;
+        private readonly ISender _mediator;
+        private readonly IMapper _mapper;
 
-        public IdentityController(IMediator mediatr)
+        public IdentityController(
+            ISender mediator, IMapper mapper)
         {
-            _mediatr = mediatr;
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Login()
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            var p = await _mediatr.Send(new LoginCommand() { Email = "", Password = "" });
-            return Ok(p);
+            var query = _mapper.Map<LoginQuery>(request);
+            ErrorOr<AuthenticationResult> authResult = await _mediator.Send(query);
+
+            return authResult.Match(
+                authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+                errors => Problem(errors));
+
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Register()
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var p = await _mediatr.Send(new RegistrationCommand() { });
-            return Ok(p);
+            var command = _mapper.Map<RegisterCommand>(request);
+            ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
+            return authResult.Match(
+                authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+                errors => Problem(errors));
         }
     }
 }

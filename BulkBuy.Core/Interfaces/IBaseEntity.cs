@@ -1,4 +1,4 @@
-﻿namespace BulkBuy.Core.Interfaces
+﻿namespace BulkBuy.Domain.Interfaces
 {
     public interface IBaseEntity
     {
