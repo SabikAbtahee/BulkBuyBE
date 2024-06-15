@@ -1,7 +1,7 @@
 ﻿using BulkBuy.Api.Controllers;
+using BulkBuy.Application.Identity.Commands.Login;
 using BulkBuy.Application.Identity.Commands.Register;
 using BulkBuy.Application.Identity.Common;
-using BulkBuy.Application.Identity.Queries.Login;
 using BulkBuy.Contracts.Identity;
 using ErrorOr;
 using MapsterMapper;
@@ -28,9 +28,8 @@ namespace BulkBuy.Identity.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var query = _mapper.Map<LoginQuery>(request);
+            var query = _mapper.Map<LoginCommand>(request);
             ErrorOr<AuthenticationResult> authResult = await _mediator.Send(query);
-
             return authResult.Match(
                 authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
                 errors => Problem(errors));

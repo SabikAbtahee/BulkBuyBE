@@ -9,4 +9,5 @@ public record RegisterCommand(
     string PhoneNumber,
     string Email,
     string Address,
-    string Password) : IRequest<ErrorOr<AuthenticationResult>>;
+    string Password,
+    string ConfirmPassword) : IRequest<ErrorOr<AuthenticationResult>>;

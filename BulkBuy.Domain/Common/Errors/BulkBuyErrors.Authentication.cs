@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 
 namespace BulkBuy.Domain.Common.Errors;
-public static partial class Errors
+public static partial class BulkBuyErrors
 {
     public static class Authentication
     {

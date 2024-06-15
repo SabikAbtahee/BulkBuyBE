@@ -1,4 +1,5 @@
-﻿using BulkBuy.Application.Common.Interfaces;
+﻿
+using BulkBuy.Application.Common.Interfaces;
 
 namespace BulkBuy.Infrastructure.Services;
 internal class DateTimeProvider : IDateTimeProvider

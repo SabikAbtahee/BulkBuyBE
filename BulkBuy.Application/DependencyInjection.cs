@@ -1,4 +1,5 @@
 ﻿using BulkBuy.Application.Common.Behaviors;
+using BulkBuy.Application.Identity.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,15 @@ public static class DependencyInjection
             typeof(ValidationBehavior<,>));
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddSingleton<AuthenticationService>();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy",
+                builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+        });
         return services;
     }
 }

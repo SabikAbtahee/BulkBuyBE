@@ -9,10 +9,12 @@ namespace BulkBuy.Infrastructure.Database;
 public class MongoRepository : IRepository
 {
     private readonly IMongoDatabase _database;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
-    public MongoRepository(IMongoDatabase database)
+    public MongoRepository(IMongoDatabase database, IDateTimeProvider dateTimeProvider)
     {
         _database = database;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task DeleteAsync<T>(Expression<Func<T, bool>> dataFilters, string collectionName) where T : IBaseEntity
@@ -82,6 +84,7 @@ public class MongoRepository : IRepository
     {
         var collectionName = $"{typeof(T).Name}s";
         var collection = _database.GetCollection<T>(collectionName);
+        data.LastUpdateDate = _dateTimeProvider.UtcNow;
         await collection.ReplaceOneAsync(dataFilters, data);
     }
 
@@ -97,7 +100,7 @@ public class MongoRepository : IRepository
         {
             updateDefinitions.Add(updateDefinition.Set(update.Key, update.Value));
         }
-
+        //updateDefinitions.Add(updateDefinition.Set("LastUpdateDate", _dateTimeProvider.UtcNow));
         var combinedUpdate = updateDefinition.Combine(updateDefinitions);
 
         await collection.UpdateOneAsync(dataFilters, combinedUpdate);

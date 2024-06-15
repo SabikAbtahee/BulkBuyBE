@@ -1,5 +1,6 @@
 ﻿using BulkBuy.Application.Common.Interfaces;
 using BulkBuy.Domain.Entities;
+using BulkBuy.Domain.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,13 +22,16 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     {
         var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret)), SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var claims = new List<Claim>
         {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.UserName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Name, user.UserName ?? ""),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? "")
             };
+        if (user?.Roles != null && user.Roles.Count > 0)
+        {
+            user.Roles.ForEach(role => claims.Add(new(ClaimTypes.Role, role.ToString())));
+        }
 
         var securityToken = new JwtSecurityToken
         (

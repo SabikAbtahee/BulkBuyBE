@@ -1,6 +1,7 @@
 ﻿using BulkBuy.Application.Common.Interfaces;
 using BulkBuy.Infrastructure.Database;
 using BulkBuy.Infrastructure.Identity;
+using BulkBuy.Infrastructure.Password;
 using BulkBuy.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +14,6 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using System.Text;
 
-
 namespace BulkBuy.Infrastructure;
 public static class DependencyInjection
 {
@@ -22,6 +22,7 @@ public static class DependencyInjection
         services.AddAuth(configuration);
         services.AddDatabase();
         services.AddRepository();
+        services.AddPasswordHasher(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
@@ -65,8 +66,18 @@ public static class DependencyInjection
 
     public static IServiceCollection AddRepository(this IServiceCollection services)
     {
-        services.AddSingleton<IRepository>(serviceProvider => new MongoRepository(serviceProvider.GetService<IMongoDatabase>())
+        services.AddSingleton<IRepository>(serviceProvider => new MongoRepository(serviceProvider.GetService<IMongoDatabase>(), serviceProvider.GetService<IDateTimeProvider>())
         );
+        return services;
+    }
+
+    public static IServiceCollection AddPasswordHasher(this IServiceCollection services, IConfiguration configuration)
+    {
+        var passwordSettings = new PasswordSettings();
+        configuration.Bind(PasswordSettings.SectionName, passwordSettings);
+        services.AddSingleton(Options.Create(passwordSettings));
+
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
         return services;
     }
 }

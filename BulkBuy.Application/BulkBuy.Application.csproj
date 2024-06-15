@@ -17,4 +17,8 @@
     <ProjectReference Include="..\BulkBuy.Domain\BulkBuy.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Identity\Queries\" />
+  </ItemGroup>
+
 </Project>

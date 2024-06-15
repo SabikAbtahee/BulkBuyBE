@@ -8,7 +8,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = null; // Preserve property names
+        });
         services.AddSingleton<ProblemDetailsFactory, BulkBuyProblemDetailsFactory>();
         services.AddMappings();
 
