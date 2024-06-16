@@ -13,5 +13,6 @@ public static partial class BulkBuyErrors
             code: "User.UserDoesNotExistGivenEmail",
             description: "User does not exist given email");
 
+
     }
 }

@@ -7,7 +7,7 @@ public static partial class BulkBuyErrors
     {
 
         public static Error InvalidCredentails => Error.Validation(
-            code: "User.InvalidCredentails",
-            description: "Invalid Credentails");
+            code: "User.InvalidCredentials",
+            description: "Invalid Credentials");
     }
 }

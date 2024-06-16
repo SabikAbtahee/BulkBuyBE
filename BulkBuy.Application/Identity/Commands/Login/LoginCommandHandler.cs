@@ -26,7 +26,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, ErrorOr<Authent
         var user = await _repository.GetItemAsync<User>(x => x.Email == request.Email);
 
         if (user is null)
-            return BulkBuyErrors.UserError.UserDoesNotExistGivenEmail;
+            return BulkBuyErrors.Authentication.InvalidCredentails;
 
         var isPasswordValid = _passwordHasher.VerifyPassword(request.Password, user.Password);
 

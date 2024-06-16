@@ -16,10 +16,6 @@ public class ApiController : ControllerBase
         {
             return Problem();
         }
-        if (errors.All(error => error.Type == ErrorType.Validation))
-        {
-            return ValidationProblem(errors);
-        }
         HttpContext.Items[HttpContextItemKeys.Errors] = errors;
         var firstError = errors[0];
 
