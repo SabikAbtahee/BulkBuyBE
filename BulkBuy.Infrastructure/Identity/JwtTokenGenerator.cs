@@ -1,6 +1,5 @@
 ﻿using BulkBuy.Application.Common.Interfaces;
 using BulkBuy.Domain.Entities;
-using BulkBuy.Domain.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,7 +29,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             };
         if (user?.Roles != null && user.Roles.Count > 0)
         {
-            user.Roles.ForEach(role => claims.Add(new(ClaimTypes.Role, role.ToString())));
+            user.Roles.ForEach(role => claims.Add(new("roles", role.ToString())));
         }
 
         var securityToken = new JwtSecurityToken
