@@ -17,7 +17,6 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
             .Matches(BulkBuyConstants.PasswordRegex)
             .WithMessage("Must Contain 1 Uppercase, 1 Lowercase, 1 Number, 1 Special Character, and at least 8 or more characters");
         RuleFor(x => x.Address).NotEmpty();
-        RuleFor(x => x.ConfirmPassword)
-            .Equal(x => x.Password).WithMessage("Passwords do not match");
+
     }
 }
